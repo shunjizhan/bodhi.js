@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { options } from '@acala-network/api';
+import { EvmAccountInfo } from '@acala-network/types/interfaces';
 import type {
   Block,
   BlockTag,
@@ -20,9 +21,8 @@ import { Deferrable } from '@ethersproject/properties';
 import Scanner from '@open-web3/scanner';
 import { ApiPromise } from '@polkadot/api';
 import { ApiOptions } from '@polkadot/api/types';
-import { EvmAccountInfo } from '@acala-network/types/interfaces';
-import { Option } from '@polkadot/types';
 import type { WsProvider } from '@polkadot/rpc-provider';
+import { Option } from '@polkadot/types';
 import {
   hexToU8a,
   isHex,
@@ -32,14 +32,14 @@ import {
   u8aFixLength
 } from '@polkadot/util';
 import { encodeAddress } from '@polkadot/util-crypto';
-import { DataProvider } from './DataProvider';
+import { AbstractDataProvider } from './DataProvider';
 
 const logger = new Logger('bodhi-provider/0.0.1');
 export class Provider implements AbstractProvider {
   readonly api: ApiPromise;
   readonly resolveApi: Promise<ApiPromise>;
   readonly _isProvider: boolean;
-  readonly dataProvider?: DataProvider;
+  readonly dataProvider?: AbstractDataProvider;
   readonly scanner: Scanner;
 
   /**
@@ -47,7 +47,7 @@ export class Provider implements AbstractProvider {
    * @param _apiOptions
    * @param dataProvider
    */
-  constructor(_apiOptions: ApiOptions, dataProvider?: DataProvider) {
+  constructor(_apiOptions: ApiOptions, dataProvider?: AbstractDataProvider) {
     const apiOptions = options(_apiOptions);
 
     this.api = new ApiPromise(apiOptions);
