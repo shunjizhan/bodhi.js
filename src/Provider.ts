@@ -32,9 +32,7 @@ import {
   u8aFixLength
 } from '@polkadot/util';
 import { encodeAddress } from '@polkadot/util-crypto';
-import type BN from 'bn.js';
 import { AbstractDataProvider } from './DataProvider';
-import { toBN } from './utils';
 
 const logger = new Logger('bodhi-provider/0.0.1');
 export class Provider implements AbstractProvider {
@@ -255,48 +253,10 @@ export class Provider implements AbstractProvider {
   async estimateGas(
     transaction: Deferrable<TransactionRequest>
   ): Promise<BigNumber> {
-    const resources = await this.estimateResources(transaction);
-    return resources.gas.add(resources.storage);
-  }
-
-  /**
-   * Estimate resources for a transaction.
-   * @param transaction The transaction to estimate the resources of
-   * @returns The estimated resources used by this transaction
-   */
-  async estimateResources(
-    transaction: Deferrable<TransactionRequest>
-  ): Promise<{
-    gas: BigNumber;
-    storage: BigNumber;
-    weightFee: BigNumber;
-  }> {
     const resolved = await this._resolveTransaction(transaction);
-
-    const from = await resolved.from;
-    const value = await resolved.value;
-    const to = await resolved.to;
-    const data = await resolved.data;
-
-    if (!from) {
-      return logger.throwError('From cannot be undefined');
-    }
-
-    const extrinsic = !to
-      ? this.api.tx.evm.create(data, toBN(value), '0', 10000)
-      : this.api.tx.evm.call(to, data, toBN(value), '0', 10000);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = await (this.api.rpc as any).evm.estimateResources(
-      resolved.from,
-      extrinsic.toHex()
-    );
-
-    return {
-      gas: BigNumber.from((result.gas as BN).toString()),
-      storage: BigNumber.from((result.storage as BN).toString()),
-      weightFee: BigNumber.from((result.weightFee as BN).toString())
-    };
+    const result = await (this.api.rpc as any).evm.estimateGas(resolved);
+    return result.toHex();
   }
 
   /**

@@ -230,57 +230,12 @@ export class Signer extends Abstractsigner implements TypedDataSigner {
    * @returns A promise that resolves to the transaction's response
    */
   async sendTransaction(
-    _transaction: Deferrable<TransactionRequest>
+    transaction: Deferrable<TransactionRequest>
   ): Promise<TransactionResponse> {
     this._checkProvider('sendTransaction');
 
     const signerAddress = await this.getSubstrateAddress();
-    const evmAddress = await this.getAddress();
-
-    // estimateResources requires the from parameter.
-    // However, when creating the contract, there is no from parameter in the tx
-    const transaction = {
-      from: evmAddress,
-      ..._transaction
-    };
-
-    const resources = await this.provider.estimateResources(transaction);
-
-    let gasLimit: BigNumber;
-    let storageLimit: BigNumber;
-
-    let totalLimit = await transaction.gasLimit;
-
-    if (totalLimit === null || totalLimit === undefined) {
-      gasLimit = resources.gas;
-      storageLimit = resources.storage;
-      totalLimit = resources.gas.add(resources.storage);
-    } else {
-      const estimateTotalLimit = resources.gas.add(resources.storage);
-      gasLimit = BigNumber.from(totalLimit)
-        .mul(resources.gas)
-        .div(estimateTotalLimit)
-        .add(1);
-      storageLimit = BigNumber.from(totalLimit)
-        .mul(resources.storage)
-        .div(estimateTotalLimit)
-        .add(1);
-    }
-
-    transaction.gasLimit = totalLimit;
-
     const tx = await this.populateTransaction(transaction);
-
-    const data = tx.data;
-    const from = tx.from;
-
-    if (!data) {
-      return logger.throwError('Request data not found');
-    }
-
-    if (!from) {
-      return logger.throwError('Request from not found');
-    }
 
     let extrinsic: SubmittableExtrinsic<'promise'>;
 
@@ -288,17 +243,17 @@ export class Signer extends Abstractsigner implements TypedDataSigner {
     if (!tx.to) {
       extrinsic = this.provider.api.tx.evm.create(
         tx.data,
-        toBN(tx.value),
-        toBN(gasLimit),
-        toBN(storageLimit)
+        toBN(tx.value) || '0',
+        toBN(tx.gasLimit),
+        0xffffffff
       );
     } else {
       extrinsic = this.provider.api.tx.evm.call(
         tx.to,
         tx.data,
-        toBN(tx.value),
-        toBN(gasLimit),
-        toBN(storageLimit)
+        toBN(tx.value) || '0',
+        toBN(tx.gasLimit),
+        0xffffffff
       );
     }
 
@@ -311,19 +266,19 @@ export class Signer extends Abstractsigner implements TypedDataSigner {
             .then(() => {
               resolve({
                 hash: extrinsic.hash.toHex(),
-                from: from || '',
+                from: tx.from || signerAddress,
                 confirmations: 0,
                 nonce: toBN(tx.nonce).toNumber(),
                 gasLimit: BigNumber.from(tx.gasLimit || '0'),
                 gasPrice: BigNumber.from(0),
-                data: dataToString(data),
+                data: dataToString(tx.data || ''),
                 value: BigNumber.from(tx.value || '0'),
                 chainId: 1024,
                 wait: (confirmations?: number): Promise<TransactionReceipt> => {
                   return this.provider._resolveTransactionReceipt(
                     extrinsic.hash.toHex(),
                     result.status.asInBlock.toHex(),
-                    from
+                    tx.from || signerAddress
                   );
                 }
               });

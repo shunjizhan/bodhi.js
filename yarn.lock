@@ -17,7 +17,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@acala-network/api@npm:^0.7.3":
+"@acala-network/api@npm:^0.7.1":
   version: 0.7.3
   resolution: "@acala-network/api@npm:0.7.3"
   dependencies:
@@ -35,7 +35,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@acala-network/bodhi@workspace:."
   dependencies:
-    "@acala-network/api": ^0.7.3
+    "@acala-network/api": ^0.7.1
     "@babel/core": ^7.12.9
     "@babel/register": ^7.12.1
     "@babel/runtime": ^7.12.5
@@ -2585,7 +2585,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/api-derive@npm:^4.5.1":
+"@polkadot/api-derive@npm:^4.2.1":
   version: 4.5.1
   resolution: "@polkadot/api-derive@npm:4.5.1"
   dependencies:
@@ -2601,7 +2601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/api@npm:^4.5.1":
+"@polkadot/api@npm:^4.2.1":
   version: 4.5.1
   resolution: "@polkadot/api@npm:4.5.1"
   dependencies:
@@ -2781,7 +2781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/types@npm:^4.5.1":
+"@polkadot/types@npm:^4.2.1":
   version: 4.5.1
   resolution: "@polkadot/types@npm:4.5.1"
   dependencies:
