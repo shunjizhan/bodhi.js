@@ -1,6 +1,6 @@
 # @acala-network/bodhi.js
 
-TESTTTTTT
+push new tag
 
 **If you are using mandala tc6, then you should use @acala-network/bodhi@0.2.x, @acala-network/api@0.7.1, @polkadot/api@4.2.1.**
 
