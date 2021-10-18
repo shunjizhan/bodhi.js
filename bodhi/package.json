@@ -5,7 +5,7 @@
   "repository": "git@github.com:AcalaNetwork/bodhi.js.git",
   "author": "Acala Developers <hello@acala.network>",
   "license": "Apache-2.0",
-  "private": false,
+  "private": true,
   "scripts": {
     "build": "heft build --clean",
     "build:release": "polkadot-ci-ghact-build",
