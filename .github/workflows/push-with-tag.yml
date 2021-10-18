@@ -18,9 +18,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          rush update
+          yarn
           cd bodhi/
-          rushx ${{ matrix.step }}
+          yarn ${{ matrix.step }}
 
   dummy:
     runs-on: ubuntu-latest

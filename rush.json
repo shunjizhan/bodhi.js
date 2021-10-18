@@ -438,17 +438,17 @@
     // },
     //
     {
-      "packageName": "@acala-network/eth-rpc-adaptor",
+      "packageName": "test-eth-rpc-adaptor",
       "projectFolder": "eth-rpc-adapter",
       "reviewCategory": "production"
     },
+    // {
+    //   "packageName": "@acala-network/evm-subql",
+    //   "projectFolder": "evm-subql",
+    //   "reviewCategory": "production"
+    // },
     {
-      "packageName": "@acala-network/evm-subql",
-      "projectFolder": "evm-subql",
-      "reviewCategory": "production"
-    },
-    {
-      "packageName": "@acala-network/bodhi",
+      "packageName": "test-bodhi",
       "projectFolder": "bodhi",
       "reviewCategory": "production"
     }
