@@ -6,21 +6,19 @@ on:
 
 jobs:
   master:
-    strategy:
-      matrix:
-        step: ['build:release']
-    name: ${{ matrix.step }}
+    name: build and publish
     if: "! startsWith(github.event.head_commit.message, '[CI Skip]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: ${{ matrix.step }}
+      - name: build and publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          yarn
           cd bodhi/
-          yarn ${{ matrix.step }}
+          yarn
+          yarn build
+          yarn publish
 
   dummy:
     runs-on: ubuntu-latest
