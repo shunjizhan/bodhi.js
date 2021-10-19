@@ -21,7 +21,7 @@ jobs:
         run: |
           cd bodhi
           npm build
-          npm publish --access public
+          npm publish --access public --verbose
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
