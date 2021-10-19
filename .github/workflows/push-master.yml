@@ -15,14 +15,13 @@ jobs:
         with:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
-      # - name: Install rush
-      #   run: node common/scripts/install-run-rush.js install
+      - name: rush install
+        run: node common/scripts/install-run-rush.js update
       - name: publish
         run: |
-          node common/scripts/install-run-rush.js update
           cd bodhi
-          yarn build
-          yarn publish
+          npm build
+          npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
