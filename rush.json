@@ -448,7 +448,7 @@
       "reviewCategory": "production"
     },
     {
-      "packageName": "@acala-network/bodhi",
+      "packageName": "test-bodhi",
       "projectFolder": "bodhi",
       "reviewCategory": "production"
     }
