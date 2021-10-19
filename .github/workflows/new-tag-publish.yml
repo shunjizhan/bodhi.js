@@ -1,8 +1,8 @@
-name: Master
+name: Publish on New Tag
 on:
   push:
-    branches:
-      - new-workflow
+    tag:
+      - 'v*'
 
 jobs:
   master:
@@ -15,19 +15,14 @@ jobs:
         with:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: rush install
+
+      - name: install dependencies
         run: node common/scripts/install-run-rush.js update
-      - name: publish
+
+      - name: build and publish
         run: |
           cd bodhi
-          npm build
-          npm publish --access public --verbose
+          rushx build
+          rushx publish --access public --verbose
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  dummy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: dummy
-        run: |
-          echo "Dummy skip step"
