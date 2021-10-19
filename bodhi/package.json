@@ -1,5 +1,5 @@
 {
-  "name": "@acala-network/bodhi",
+  "name": "test-bodhi",
   "version": "1.0.4-0",
   "main": "index.js",
   "repository": "git@github.com:AcalaNetwork/bodhi.js.git",
