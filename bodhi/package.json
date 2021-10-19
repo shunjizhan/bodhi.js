@@ -1,10 +1,11 @@
 {
   "name": "test-bodhi",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:AcalaNetwork/bodhi.js.git",
   "author": "Acala Developers <hello@acala.network>",
   "license": "Apache-2.0",
+  "private": false,
   "scripts": {
     "build": "heft build --clean",
     "lint": "tsc --noEmit && eslint \"**/*.ts\"",
