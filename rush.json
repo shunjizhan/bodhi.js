@@ -454,7 +454,7 @@
       "shouldPublish": true
     },
     {
-      "packageName": "@acala-network/eth-providers",
+      "packageName": "test-eth-providers",
       "projectFolder": "eth-providers",
       "reviewCategory": "production",
       "shouldPublish": true

@@ -30,3 +30,10 @@ jobs:
           yarn publish --access public --verbose
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: publish eth-adaptor
+        run: |
+          cd ../eth-providers
+          yarn publish --access public --verbose
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
