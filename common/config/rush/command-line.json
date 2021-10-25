@@ -38,7 +38,7 @@
       "commandKind": "bulk",
       "name": "build",
       "summary": "Build all projects that haven't been built, or have changed since they were last built",
-      "allowWarningsInSuccessfulBuild": true
+      "allowWarningsInSuccessfulBuild": false
     },
     // {
     //   /**
