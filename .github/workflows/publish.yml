@@ -7,7 +7,6 @@ on:
 jobs:
   publish:
     name: 'Publish To NPM'
-    if: github.ref == 'refs/heads/master' # only trigger on master
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -40,7 +39,6 @@ jobs:
 
   tagged-release:
     name: 'Tagged Release'
-    if: github.ref == 'refs/heads/master' # only trigger on master
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'marvinpinto/action-automatic-releases@latest'
